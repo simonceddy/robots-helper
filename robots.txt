@@ -1,0 +1,20 @@
+# Test robots file
+
+User-agent: *
+Disallow: /admin
+Disallow: /cart
+Disallow: /orders
+Disallow: /checkouts/
+Disallow: /checkout
+Allow: /ok
+Allow: /fine
+Host: localhost
+Crawl-delay: 1
+Sitemap: https://www.site.map/sitemap.xml
+
+# Google adsbot
+User-agent: adsbot-google
+Disallow: /checkouts/
+Disallow: /checkout
+Disallow: /cart
+Crawl-delay: 10
