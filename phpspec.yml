@@ -1,0 +1,8 @@
+suites:
+    default:
+        psr4_prefix:  Eddy\Robots
+        namespace:    Eddy\Robots
+        spec_path:    tests
+        src_path:     src
+
+formatter.name:   pretty

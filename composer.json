@@ -1,0 +1,26 @@
+{
+    "name": "simoneddy/robots-helper",
+    "description": "Utility for working with robots.txt files",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simon Eddy",
+            "email": "simon@simoneddy.com.au"
+        }
+    ],
+    "config": {
+       "bin-dir": "bin"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+       "psr-4": {
+          "Eddy\\Robots\\": "src"
+       }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.3",
+        "phpspec/phpspec": "^7.4"
+    }
+}
