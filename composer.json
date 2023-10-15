@@ -19,6 +19,9 @@
           "Eddy\\Robots\\": "src"
        }
     },
+    "require": {
+        "php": "^8.1"
+    },
     "require-dev": {
         "symfony/var-dumper": "^6.3",
         "phpspec/phpspec": "^7.4"
