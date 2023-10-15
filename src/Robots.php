@@ -1,10 +1,10 @@
 <?php
 namespace Eddy\Robots;
 
-use Traversable;
-
 class Robots implements \ArrayAccess, \IteratorAggregate
 {
+    public const TXT = 'robots.txt';
+
     private array $agents = [];
 
     public function __construct(array $userAgents = [])
@@ -38,19 +38,29 @@ class Robots implements \ArrayAccess, \IteratorAggregate
 
     public function getAgent(?string $agent = null)
     {
-        if (!isset($agent)) return $this->agents;
+        if (empty($this->agents)) return null;
+        if (!isset($agent)) {
+            return $this->agents['*']
+                ?? $this->agents[array_key_first($this->agents)];
+        }
 
         return $this->agents[$agent] ?? null;
+    }
+
+    public function getAgents()
+    {
+        return $this->agents;
     }
 
     public function __get($name)
     {
         switch ($name) {
             case 'agent':
-            case 'agents':
             case 'userAgent':
-            case 'userAgents':
                 return $this->getAgent();
+            case 'agents':
+            case 'userAgents':
+                return $this->getAgents();
         }
 
         throw new \OutOfBoundsException('Undefined property: ' . $name);
@@ -91,7 +101,7 @@ class Robots implements \ArrayAccess, \IteratorAggregate
         $this->removeAgent($offset);
     }
 
-    public function getIterator(): Traversable
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->agents);
     }
