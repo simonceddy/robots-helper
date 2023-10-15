@@ -16,7 +16,7 @@ class RobotsFactorySpec extends ObjectBehavior
     function let(UserAgentFactory $userAgentFactory, UserAgent $userAgent)
     {
         $this->robotsTxt = file_get_contents(dirname(dirname(dirname(__DIR__))) . '/robots.txt');
-
+        $userAgent->getAgent()->willReturn('*');
         $userAgentFactory->make(new AnyValueToken(), new AnyValueToken())->willReturn($userAgent);
         $this->beConstructedWith($userAgentFactory);
     }

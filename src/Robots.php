@@ -19,24 +19,24 @@ class Robots implements \ArrayAccess, \IteratorAggregate
         }
     }
 
-    public function addAgent(UserAgent $agent, ?string $key = null)
+    public function addAgent(UserAgent $agent, ?string $key = null): self
     {
         $this->agents[$key ?? $agent->getAgent()] = $agent;
         return $this;
     }
 
-    public function hasAgent(string $agent)
+    public function hasAgent(string $agent): bool
     {
         return isset($this->agents[$agent]);
     }
 
-    public function removeAgent(string $agent)
+    public function removeAgent(string $agent): self
     {
         unset($this->agents[$agent]);
         return $this;
     }
 
-    public function getAgent(?string $agent = null)
+    public function getAgent(?string $agent = null): ?UserAgent
     {
         if (empty($this->agents)) return null;
         if (!isset($agent)) {
@@ -47,7 +47,7 @@ class Robots implements \ArrayAccess, \IteratorAggregate
         return $this->agents[$agent] ?? null;
     }
 
-    public function getAgents()
+    public function getAgents(): array
     {
         return $this->agents;
     }
@@ -66,7 +66,7 @@ class Robots implements \ArrayAccess, \IteratorAggregate
         throw new \OutOfBoundsException('Undefined property: ' . $name);
     }
 
-    public function toString()
+    public function toString(): string
     {
         $lines = [];
         foreach ($this->agents as $agent) {

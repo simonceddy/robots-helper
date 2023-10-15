@@ -76,7 +76,7 @@ class UserAgent
      *
      * @return string
      */
-    public function getAgent()
+    public function getAgent(): string
     {
         return $this->agent;
     }
@@ -88,7 +88,7 @@ class UserAgent
      *
      * @return self
      */
-    public function setAgent(string $agent)
+    public function setAgent(string $agent): self
     {
         $this->agent = $agent;
         return $this;
@@ -99,7 +99,7 @@ class UserAgent
      *
      * @return string|int|null
      */
-    public function getCrawlDelay()
+    public function getCrawlDelay(): mixed
     {
         return $this->crawlDelay ?? null;
     }
@@ -111,8 +111,13 @@ class UserAgent
      *
      * @return self
      */
-    public function setCrawlDelay(mixed $delay)
+    public function setCrawlDelay(mixed $delay): self
     {
+        if (!is_numeric($delay)) {
+            throw new \InvalidArgumentException(
+                'Crawl-delay must be numerical!'
+            );
+        }
         $this->crawlDelay = $delay;
         return $this;
     }
@@ -124,7 +129,7 @@ class UserAgent
      *
      * @return string[]|string|null
      */
-    public function getHosts(?int $key = null)
+    public function getHosts(?int $key = null): mixed
     {
         if ($key !== null) return $this->hostList[$key] ?? null;
         return $this->hostList;
@@ -137,7 +142,7 @@ class UserAgent
      *
      * @return self
      */
-    public function addHost(mixed $host)
+    public function addHost(mixed $host): self
     {
         if (is_string($host)) $host = [$host];
         else if (!is_array($host)) {
@@ -156,7 +161,7 @@ class UserAgent
      *
      * @return string[]|string|null
      */
-    public function getAllowed(?int $key = null)
+    public function getAllowed(?int $key = null): mixed
     {
         if ($key !== null) return $this->allowedPaths[$key] ?? null;
         return $this->allowedPaths;
@@ -169,7 +174,7 @@ class UserAgent
      *
      * @return self
      */
-    public function addAllowed(mixed $path)
+    public function addAllowed(mixed $path): self
     {
         if (is_string($path)) $path = [$path];
         else if (!is_array($path)) {
@@ -187,8 +192,10 @@ class UserAgent
      * @param string|string[] $path
      *
      * @return self
+     * 
+     * @throws \InvalidArgumentException Thrown if $path is not a string or array
      */
-    public function addDisallowed(mixed $path)
+    public function addDisallowed(mixed $path): self
     {
         if (is_string($path)) $path = [$path];
         else if (!is_array($path)) {
@@ -208,7 +215,7 @@ class UserAgent
      *
      * @return string[]|string|null
      */
-    public function getDisallowed(?int $key = null)
+    public function getDisallowed(?int $key = null): mixed
     {
         if ($key !== null) return $this->disallowedPaths[$key] ?? null;
         return $this->disallowedPaths;
@@ -219,7 +226,7 @@ class UserAgent
      *
      * @return string|null
      */
-    public function getSitemap()
+    public function getSitemap(): ?string
     {
         return $this->agentSitemap ?? null;
     }
@@ -231,7 +238,7 @@ class UserAgent
      *
      * @return self
      */
-    public function setSitemap(string $path)
+    public function setSitemap(string $path): self
     {
         $this->agentSitemap = $path;
         return $this;
@@ -292,7 +299,7 @@ class UserAgent
      *
      * @return string
      */
-    public function toString()
+    public function toString(): string
     {
         $lines = [
             'User-agent: ' . $this->agent,
